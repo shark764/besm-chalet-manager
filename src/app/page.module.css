@@ -11,7 +11,7 @@
   align-items: center;
   justify-items: center;
   min-height: 100svh;
-  padding: 80px;
+  padding: 24px;
   padding-top: 0;
   gap: 64px;
   font-family: var(--font-geist-sans);
@@ -80,7 +80,7 @@
 }
 
 .ctas button {
-  border-radius: 128px;
+  border-radius: 32px;
   height: 48px;
   padding: 0 20px;
   border: none;
@@ -99,6 +99,23 @@
   display: flex;
   gap: 8px;
 }
+
+.ctas button.condensed {
+  height: unset;
+  padding: 8px 20px;
+}
+
+.ctas button.buttonIcon {
+  height: unset;
+  padding: 0;
+}
+
+/* button.icon {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: none;
+} */
 
 a.primary,
 button.primary {
@@ -192,6 +209,17 @@ a.secondary {
   gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
+
+  &.dayView {
+    width: 100%;
+    gap: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+
+    .card {
+      flex: 1;
+    }
+  }
 }
 
 .card {
@@ -205,11 +233,26 @@ a.secondary {
   flex: 0 1 30%;
 }
 
-.cardHeader {
+.cardHeader,
+.groupHeader {
   display: flex;
   gap: 8px;
   align-items: center;
   justify-content: space-between;
+
+  .cardHeaderButtons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.itemHeader {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-self: flex-start;
 }
 
 .card h2 {
@@ -226,6 +269,13 @@ a.secondary {
     line-height: 32px;
     font-weight: 500;
     color: chocolate;
+  }
+
+  &.comment {
+    color: chocolate;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: italic;
   }
 }
 
@@ -254,4 +304,46 @@ a.secondary {
 
 .extra {
   color: maroon;
+}
+
+.icon {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: none;
+  background: var(--gray-alpha-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.icon:hover {
+  background: var(--button-primary-hover);
+}
+
+.icon-svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.buttonIcon {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+
+  .icon-svg {
+    fill: cadetblue;
+  }
+}
+
+.buttonControl .icon-svg {
+  fill: crimson;
+}
+
+.quantity {
+  color: crimson;
 }

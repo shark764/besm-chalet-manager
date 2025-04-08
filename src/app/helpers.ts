@@ -8,20 +8,12 @@ import {
   menu,
   Menu,
   MenuElement,
+  primaryGroups,
   WeekMenu,
 } from "../utils";
 import _uniq from "lodash/uniq";
 import _intersection from "lodash/intersection";
 import _differenceBy from "lodash/differenceBy";
-
-const primaryGroups = [
-  "pollos",
-  "carnes",
-  "pescados",
-  "pastas",
-  "rellenos",
-  "sopas",
-];
 
 const filterItemFn = (day: Day) => (item: MenuElement) => {
   return (
@@ -48,14 +40,14 @@ const dayCants: Record<Day, DayCant> = {
     frescos: 3,
   },
   Martes: {
-    pollos: 1,
+    pollos: 2,
     carnes: 2,
-    pescados: 1,
-    pastas: 1,
-    rellenos: 1,
+    pescados: 0,
+    pastas: 0,
+    rellenos: 2,
     sopas: 1,
     economicos: 1,
-    especiales: 1,
+    especiales: 0,
     ensaladas: 2,
     frescos: 3,
   },
@@ -111,14 +103,23 @@ const dayCants: Record<Day, DayCant> = {
     pollos: 2,
     carnes: 1,
     pescados: 0,
-    pastas: 1,
+    pastas: 0,
     rellenos: 2,
-    sopas: 0,
+    sopas: 1,
     economicos: 2,
     especiales: 0,
     ensaladas: 2,
     frescos: 2,
   },
+};
+
+const generateItem = (day: Day, group: keyof Menu, prevItem?: MenuElement) => {
+  const groupElements = menu[group].filter(
+    (element) =>
+      filterItemFn(day)(element) && element.nombre !== prevItem?.nombre
+  );
+  const item = faker.helpers.arrayElement(groupElements);
+  return item;
 };
 
 const generateDayMenu = ({
@@ -295,11 +296,32 @@ const generateWeekMenu = (): WeekMenu => {
   return weekMenu;
 };
 
+const getOrderFromType = (
+  type?: "chicken" | "beef" | "pork" | "fish" | "vegetable" | "other"
+) => {
+  switch (type) {
+    case "chicken":
+      return 1;
+    case "beef":
+      return 2;
+    case "pork":
+      return 3;
+    case "fish":
+      return 4;
+    case "vegetable":
+      return 5;
+    default:
+      return 6;
+  }
+};
+
 export {
   generateDayMenu,
   generateWeekMenu,
+  generateItem,
   dayCants,
   filterItemFn,
   primaryGroups,
   menu,
+  getOrderFromType,
 };
